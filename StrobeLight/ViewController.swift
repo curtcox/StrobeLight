@@ -8,11 +8,14 @@ class ViewController: UIViewController {
     var timeBetweenFlashes = 0.5
     var flashDuration = 0.04
     
+    override func loadView() {
+        view = StrobeView()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addRecognizers()
         playStrobe()
-        NSLog("View did load")
     }
 
     func startTimer() {
@@ -69,15 +72,16 @@ class ViewController: UIViewController {
         } else {
             playStrobe()
         }
-        NSLog("playPause")
     }
 
     func pauseStrobe() {
         playing = false
+        displayText("Paused")
     }
     
     func playStrobe() {
         playing = true
+        displayText("")
         startTimer()
     }
     
@@ -102,5 +106,11 @@ class ViewController: UIViewController {
             timeBetweenFlashes = minTimeBetweenFlashes
         }
     }
+    
+    func displayText(text: String) {
+        let strobeView = view as! StrobeView
+        strobeView.text = text
+    }
+    
 }
 

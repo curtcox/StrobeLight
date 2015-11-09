@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D0617CA1BF04966005D9B15 /* StrobeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D0617C91BF04966005D9B15 /* StrobeView.swift */; };
 		4D44771E1BE7974100D9C3D5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D44771D1BE7974100D9C3D5 /* AppDelegate.swift */; };
 		4D4477201BE7974100D9C3D5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D44771F1BE7974100D9C3D5 /* ViewController.swift */; };
 		4D4477231BE7974100D9C3D5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D4477211BE7974100D9C3D5 /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D0617C91BF04966005D9B15 /* StrobeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StrobeView.swift; sourceTree = "<group>"; };
 		4D44771A1BE7974100D9C3D5 /* StrobeLight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StrobeLight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D44771D1BE7974100D9C3D5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D44771F1BE7974100D9C3D5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 		4D44771C1BE7974100D9C3D5 /* StrobeLight */ = {
 			isa = PBXGroup;
 			children = (
+				4D0617C91BF04966005D9B15 /* StrobeView.swift */,
 				4D44771D1BE7974100D9C3D5 /* AppDelegate.swift */,
 				4D44771F1BE7974100D9C3D5 /* ViewController.swift */,
 				4D4477211BE7974100D9C3D5 /* Main.storyboard */,
@@ -253,6 +256,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D4477201BE7974100D9C3D5 /* ViewController.swift in Sources */,
+				4D0617CA1BF04966005D9B15 /* StrobeView.swift in Sources */,
 				4D44771E1BE7974100D9C3D5 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,6 +476,7 @@
 				4D4477411BE7974200D9C3D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4D4477421BE7974200D9C3D5 /* Build configuration list for PBXNativeTarget "StrobeLightTests" */ = {
 			isa = XCConfigurationList;
@@ -480,6 +485,7 @@
 				4D4477441BE7974200D9C3D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4D4477451BE7974200D9C3D5 /* Build configuration list for PBXNativeTarget "StrobeLightUITests" */ = {
 			isa = XCConfigurationList;
@@ -488,6 +494,7 @@
 				4D4477471BE7974200D9C3D5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
