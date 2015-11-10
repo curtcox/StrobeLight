@@ -17,7 +17,20 @@ class StrobeView: UIView {
     }
     
     func rectForText() -> CGRect {
-        return CGRect(origin: CGPoint(x: 0, y: 0), size: UIScreen.mainScreen().bounds.size)
+        return CGRect(origin: upperLeft(), size: UIScreen.mainScreen().bounds.size)
     }
 
+    func upperLeft() -> CGPoint {
+        let y = 250
+        if text == "Paused" {
+            return CGPoint(x: 100, y: y)
+        }
+        if text.hasPrefix("0.") {
+            return CGPoint(x: 500, y: y)
+        }
+        if text.characters.count > 6 {
+            return CGPoint(x: 0, y: y)
+        }
+        return CGPoint(x: 50, y: y)
+    }
 }
