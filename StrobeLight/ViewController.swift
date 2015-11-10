@@ -3,8 +3,8 @@ import UIKit
 class ViewController: UIViewController {
 
     var playing = false
-    let minTimeBetweenFlashes = 0.04
-    let maxTimeBetweenFlashes = 100.0
+    let minTimeBetweenFlashes = 0.0625
+    let maxTimeBetweenFlashes = 128.0
     var timeBetweenFlashes = 0.5
     var flashDuration = 0.04
     
@@ -119,14 +119,14 @@ class ViewController: UIViewController {
     }
 
     func slowDownFlashing() {
-        timeBetweenFlashes *= 1.1
+        timeBetweenFlashes *= 1.090507732665258
         if timeBetweenFlashes > maxTimeBetweenFlashes {
             timeBetweenFlashes = maxTimeBetweenFlashes
         }
     }
     
     func speedUpFlashing() {
-        timeBetweenFlashes /= 1.1
+        timeBetweenFlashes /= 1.090507732665258
         if timeBetweenFlashes < minTimeBetweenFlashes {
             timeBetweenFlashes = minTimeBetweenFlashes
         }
