@@ -18,22 +18,41 @@ class ViewController: UIViewController {
         playStrobe()
     }
 
-    func startTimer() {
-        NSTimer.scheduledTimerWithTimeInterval(timeBetweenFlashes, target: self, selector: "flash", userInfo: nil, repeats: false)
+    func startBlackPeriodTimer() {
+        NSTimer.scheduledTimerWithTimeInterval(timeBetweenFlashes, target: self, selector: "blackPeriodOver", userInfo: nil, repeats: false)
+    }
+    
+    func blackPeriodOver() {
+        if (playing) {
+            flash()
+        } else {
+            displayPaused()
+        }
     }
     
     func flash() {
+        displayText("")
         white();
-        blackAfterDelay();
+        startWhitePeriodTimer();
     }
 
-    func blackAfterDelay() {
-        NSTimer.scheduledTimerWithTimeInterval(flashDuration, target: self, selector: "black", userInfo: nil, repeats: false)
+    func startWhitePeriodTimer() {
+        NSTimer.scheduledTimerWithTimeInterval(flashDuration, target: self, selector: "whitePeriodOver", userInfo: nil, repeats: false)
         if playing {
-            startTimer()
+            startBlackPeriodTimer()
+        } else {
+            displayPaused()
         }
     }
 
+    func whitePeriodOver() {
+        if playing {
+            black()
+        } else {
+            displayPaused()
+        }
+    }
+    
     func black() {
         view.backgroundColor = UIColor.blackColor()
     }
@@ -76,21 +95,27 @@ class ViewController: UIViewController {
 
     func pauseStrobe() {
         playing = false
+        displayPaused()
+    }
+    
+    func displayPaused() {
         displayText("Paused")
     }
     
     func playStrobe() {
         playing = true
         displayText("")
-        startTimer()
+        startBlackPeriodTimer()
     }
     
     func downArrow() {
         slowDownFlashing();
+        displayText(formattedTime(timeBetweenFlashes))
     }
 
     func upArrow() {
         speedUpFlashing();
+        displayText(formattedTime(timeBetweenFlashes))
     }
 
     func slowDownFlashing() {
@@ -110,7 +135,13 @@ class ViewController: UIViewController {
     func displayText(text: String) {
         let strobeView = view as! StrobeView
         strobeView.text = text
+        view.setNeedsDisplay()
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
     }
     
+    func formattedTime(time: Double) -> String {
+        return String(format:"%.3f", time)
+    }
 }
 
