@@ -25,11 +25,11 @@ class StrobeView: UIView {
         if text == "Paused" {
             return CGPoint(x: 100, y: y)
         }
-        if text.hasPrefix("0.") {
-            return CGPoint(x: 500, y: y)
+        if text.characters.count < 6 {
+            return CGPoint(x: 300, y: y)
         }
-        if text.characters.count > 6 {
-            return CGPoint(x: 0, y: y)
+        if text.characters.count < 7 {
+            return CGPoint(x: 150, y: y)
         }
         return CGPoint(x: 50, y: y)
     }
