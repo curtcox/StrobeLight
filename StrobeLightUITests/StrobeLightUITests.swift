@@ -1,11 +1,3 @@
-//
-//  StrobeLightUITests.swift
-//  StrobeLightUITests
-//
-//  Created by Curt on 11/2/15.
-//  Copyright © 2015 Curt. All rights reserved.
-//
-
 import XCTest
 
 class StrobeLightUITests: XCTestCase {
