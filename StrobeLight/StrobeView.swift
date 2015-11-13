@@ -33,4 +33,20 @@ class StrobeView: UIView {
         }
         return CGPoint(x: 50, y: y)
     }
+    
+    func black() {
+        backgroundColor = UIColor.blackColor()
+    }
+    
+    func white() {
+        backgroundColor = UIColor.whiteColor()
+    }
+
+    func displayText(text: String) {
+        self.text = text
+        setNeedsDisplay()
+        setNeedsLayout()
+        layoutIfNeeded()
+    }
+
 }

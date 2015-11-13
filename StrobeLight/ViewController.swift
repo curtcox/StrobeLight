@@ -18,12 +18,8 @@ class ViewController: UIViewController {
         playStrobe()
     }
 
-    func startBlackPeriodTimer() {
-        NSTimer.scheduledTimerWithTimeInterval(timeBetweenFlashes, target: self, selector: "blackPeriodOver", userInfo: nil, repeats: false)
-    }
-    
     func blackPeriodOver() {
-        if (playing) {
+        if playing {
             flash()
         } else {
             displayPaused()
@@ -36,55 +32,15 @@ class ViewController: UIViewController {
         startWhitePeriodTimer();
     }
 
-    func startWhitePeriodTimer() {
-        NSTimer.scheduledTimerWithTimeInterval(flashDuration, target: self, selector: "whitePeriodOver", userInfo: nil, repeats: false)
+    func whitePeriodOver() {
+        black()
         if playing {
             startBlackPeriodTimer()
         } else {
             displayPaused()
         }
     }
-
-    func whitePeriodOver() {
-        if playing {
-            black()
-        } else {
-            displayPaused()
-        }
-    }
     
-    func black() {
-        view.backgroundColor = UIColor.blackColor()
-    }
-
-    func white() {
-        view.backgroundColor = UIColor.whiteColor()
-    }
-
-    func addRecognizers() {
-        addPlayPauseRecognizer()
-        addDownArrowRecognizer()
-        addUpArrowRecognizer()
-    }
-    
-    func addPlayPauseRecognizer() {
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "playPause")
-        tapRecognizer.allowedPressTypes = [NSNumber(integer: UIPressType.PlayPause.rawValue)];
-        self.view.addGestureRecognizer(tapRecognizer)
-    }
-
-    func addDownArrowRecognizer() {
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "downArrow")
-        tapRecognizer.allowedPressTypes = [NSNumber(integer: UIPressType.DownArrow.rawValue)];
-        self.view.addGestureRecognizer(tapRecognizer)
-    }
-
-    func addUpArrowRecognizer() {
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: "upArrow")
-        tapRecognizer.allowedPressTypes = [NSNumber(integer: UIPressType.UpArrow.rawValue)];
-        self.view.addGestureRecognizer(tapRecognizer)
-    }
-
     func playPause() {
         if playing {
             pauseStrobe()
@@ -104,8 +60,7 @@ class ViewController: UIViewController {
     
     func playStrobe() {
         playing = true
-        displayText("")
-        startBlackPeriodTimer()
+        flash()
     }
     
     func downArrow() {
@@ -132,16 +87,64 @@ class ViewController: UIViewController {
         }
     }
     
-    func displayText(text: String) {
-        let strobeView = view as! StrobeView
-        strobeView.text = text
-        view.setNeedsDisplay()
-        view.setNeedsLayout()
-        view.layoutIfNeeded()
-    }
     
     func formattedTime(time: Double) -> String {
         return String(format:"%.3f", time)
     }
+    
+    //timer
+    func startBlackPeriodTimer() {
+        afterDelay(timeBetweenFlashes, selector:"blackPeriodOver")
+    }
+
+    func startWhitePeriodTimer() {
+        afterDelay(flashDuration, selector:"whitePeriodOver")
+    }
+
+    func afterDelay(ti: NSTimeInterval, selector: Selector) {
+        NSTimer.scheduledTimerWithTimeInterval(ti, target: self, selector: selector, userInfo: nil, repeats: false)
+    }
+    
+    // view
+    func strobeView() -> StrobeView {
+        return view as! StrobeView
+    }
+
+    func displayText(text: String) {
+        strobeView().displayText(text)
+    }
+    
+    func black() {
+        strobeView().black()
+    }
+    
+    func white() {
+        strobeView().white()
+    }
+    
+    func addRecognizers() {
+        addPlayPauseRecognizer()
+        addDownArrowRecognizer()
+        addUpArrowRecognizer()
+    }
+    
+    func addPlayPauseRecognizer() {
+        addRecognizerToView(UIPressType.PlayPause, action: "playPause")
+    }
+    
+    func addDownArrowRecognizer() {
+        addRecognizerToView(UIPressType.DownArrow, action: "downArrow")
+    }
+    
+    func addUpArrowRecognizer() {
+        addRecognizerToView(UIPressType.UpArrow, action: "upArrow")
+    }
+
+    func addRecognizerToView(pressType:UIPressType, action:Selector) {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: action)
+        tapRecognizer.allowedPressTypes = [NSNumber(integer: pressType.rawValue)];
+        self.view.addGestureRecognizer(tapRecognizer)
+    }
+
 }
 
