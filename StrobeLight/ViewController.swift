@@ -63,17 +63,24 @@ class ViewController: UIViewController {
         flash()
     }
     
-    func downArrow() {
+    func downSwipe() {
         slowDownFlashing();
-        displayText(formattedTime(timeBetweenFlashes))
     }
 
-    func upArrow() {
+    func upSwipe() {
         speedUpFlashing();
-        displayText(formattedTime(timeBetweenFlashes))
+    }
+
+    func leftSwipe() {
+        slowDownFlashing();
+    }
+    
+    func rightSwipe() {
+        speedUpFlashing();
     }
 
     func slowDownFlashing() {
+        displayText(formattedTime(timeBetweenFlashes))
         timeBetweenFlashes *= 1.090507732665258
         if timeBetweenFlashes > maxTimeBetweenFlashes {
             timeBetweenFlashes = maxTimeBetweenFlashes
@@ -81,6 +88,7 @@ class ViewController: UIViewController {
     }
     
     func speedUpFlashing() {
+        displayText(formattedTime(timeBetweenFlashes))
         timeBetweenFlashes /= 1.090507732665258
         if timeBetweenFlashes < minTimeBetweenFlashes {
             timeBetweenFlashes = minTimeBetweenFlashes
@@ -124,26 +132,42 @@ class ViewController: UIViewController {
     
     func addRecognizers() {
         addPlayPauseRecognizer()
-        addDownArrowRecognizer()
-        addUpArrowRecognizer()
+        addDownRecognizer()
+        addUpRecognizer()
+        addLeftRecognizer()
+        addRightRecognizer()
     }
     
     func addPlayPauseRecognizer() {
-        addRecognizerToView(UIPressType.PlayPause, action: "playPause")
+        addTapRecognizerToView(UIPressType.PlayPause, action: "playPause")
     }
     
-    func addDownArrowRecognizer() {
-        addRecognizerToView(UIPressType.DownArrow, action: "downArrow")
+    func addDownRecognizer() {
+        addSwipeRecognizerToView(UISwipeGestureRecognizerDirection.Down, action: "downSwipe")
     }
     
-    func addUpArrowRecognizer() {
-        addRecognizerToView(UIPressType.UpArrow, action: "upArrow")
+    func addUpRecognizer() {
+        addSwipeRecognizerToView(UISwipeGestureRecognizerDirection.Up, action: "upSwipe")
     }
 
-    func addRecognizerToView(pressType:UIPressType, action:Selector) {
+    func addLeftRecognizer() {
+        addSwipeRecognizerToView(UISwipeGestureRecognizerDirection.Left, action: "leftSwipe")
+    }
+    
+    func addRightRecognizer() {
+        addSwipeRecognizerToView(UISwipeGestureRecognizerDirection.Right, action: "rightSwipe")
+    }
+
+    func addTapRecognizerToView(pressType:UIPressType, action:Selector) {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: action)
         tapRecognizer.allowedPressTypes = [NSNumber(integer: pressType.rawValue)];
         self.view.addGestureRecognizer(tapRecognizer)
+    }
+
+    func addSwipeRecognizerToView(direction:UISwipeGestureRecognizerDirection, action:Selector) {
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self, action: action)
+        swipeRecognizer.direction = direction
+        self.view.addGestureRecognizer(swipeRecognizer)
     }
 
 }
